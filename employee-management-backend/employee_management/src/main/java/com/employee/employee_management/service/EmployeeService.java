@@ -32,9 +32,9 @@ public class EmployeeService {
             e.setFirstName(employee.getFirstName());
             e.setEmailId(employee.getEmailId());
             e.setLastName(employee.getLastName());
-            employeeRepository.save(e);
+            ;
 
-            return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
+            return new ResponseEntity<>(employeeRepository.save(e), HttpStatus.OK);
         }
 
         return new ResponseEntity<>("No such id found", HttpStatus.BAD_REQUEST);
