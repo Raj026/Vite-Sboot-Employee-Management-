@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmployeeService from "../services/EmployeeService";
+import Employee from "./Employee";
 
 const EmployeeList = () => {
   const navigate = useNavigate();
+  const [count, setCount] = useState(1)
   const [loading, setLoading] = useState(true);
-  const [employee, setEmployee] = useState(null);
+  const [employees, setEmployee] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,13 +54,8 @@ const EmployeeList = () => {
           </thead>
           {!loading && (
             <tbody>
-              {employee.map((emp) => (
-                <tr key={emp.id}>
-                  <td className="text-left tracking-wider py-4 px-2">{emp.firstName}</td>
-                  <td className="text-left tracking-wider py-3">{emp.lastName}</td>
-                  <td className="text-left tracking-wider py-3">{emp.emailId}</td>
-                  <td className="text-right tracking-wider py-3 px-2"></td>
-                </tr>
+              {employees.map((emp) => (
+                <Employee employee={ emp } key={emp.id}> </Employee>
               ))}
             </tbody>
           )}

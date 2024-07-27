@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EmployeeService from "../services/EmployeeService";
+import { useNavigate } from "react-router-dom";
 
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -8,6 +9,7 @@ const AddEmployee = () => {
     lastName: "",
     emailId: "",
   });
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,12 +47,22 @@ const AddEmployee = () => {
     EmployeeService.saveEmployee(employee)
     .then((response) => {
         console.log(response)
-        alert('Employee Added Successfully')
+        navigate("/");
+        alert('Employee Added Successfully')       
     })
     .catch((error) => {
         console.log(error)
         alert('Error Occurred')
     })
+  }
+
+  const reset = (e) => {
+    e.preventDefault();
+    setEmployee({
+      firstName: "",
+      lastName: "",
+      emailId: "",
+    });
   }
 
   return (
@@ -111,10 +123,11 @@ const AddEmployee = () => {
               className="rounded text-white bg-green-500 py-2 px-6 mt-4 hover:bg-green-800"
               style={{ marginRight: "170px" }}
               onClick={submitHandler}
+
             >
               SAVE
             </button>
-            <button className="rounded text-white bg-red-500 py-2 px-6 hover:bg-red-950">
+            <button className="rounded text-white bg-red-500 py-2 px-6 hover:bg-red-950" onClick={reset}>
               CLEAR
             </button>
           </div>
